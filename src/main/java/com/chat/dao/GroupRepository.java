@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.chat.entities.Groups;
 
 public interface GroupRepository extends JpaRepository<Groups, String>{
+	
+	public Groups findByGid(String gid);
 
 }
