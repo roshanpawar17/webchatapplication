@@ -16,6 +16,7 @@ import com.chat.dao.UserRepository;
 import com.chat.entities.RootAdmin;
 import com.chat.entities.User;
 import com.chat.model.LoginResponse;
+import com.chat.model.UserDto;
 import com.chat.model.UserLoginData;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,8 +49,11 @@ public class LoginController {
 		if(rootAdmin != null && rootAdmin.getRpassword().equals(password)) {
 			return ResponseEntity.status(HttpStatus.OK).body(rootAdmin);
 		}else if(employee != null && employee.getEpassword().equals(password)) {
+			employee.setOnlineStatus(true);
+			userRepository.save(employee);
 			String redirectUrl = "/chatpanel?groupId=" + employee.getGroups().getGid() + "&employeeId=" + employee.getEid();
 			LoginResponse loginResponse = new LoginResponse(employee, redirectUrl);
+		
 			return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
 		} else {
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
@@ -59,10 +63,7 @@ public class LoginController {
 		
 	}
 	
-	private String getGroupIdForUser(String email) {
-        // Dummy logic to return groupId based on user email
-        return "tcg1827"; // Example groupId
-    }
+
 	
 	
 }

@@ -10,6 +10,15 @@ public class UserDto {
 	private String eemail;	
 	private String epassword;
 	private LocalDateTime date_joined;
+	private Boolean onlineStatus = false;
+	
+	public Boolean getOnlineStatus() {
+		return onlineStatus;
+	}
+
+	public void setOnlineStatus(Boolean onlineStatus) {
+		this.onlineStatus = onlineStatus;
+	}
 	public String getEid() {
 		return eid;
 	}

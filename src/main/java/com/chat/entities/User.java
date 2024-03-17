@@ -35,7 +35,16 @@ public class User {
 //	private String erole;
 //	@Column(name = "date_of_joined")
 	private LocalDateTime date_joined;
+	@Column(nullable = false, columnDefinition = "tinyint(1) default false")
+	private Boolean onlineStatus = false;
 	
+	public Boolean getOnlineStatus() {
+		return onlineStatus;
+	}
+
+	public void setOnlineStatus(Boolean onlineStatus) {
+		this.onlineStatus = onlineStatus;
+	}
 	@JsonBackReference
 	@JsonIgnore 
 	@ManyToOne

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,17 +28,26 @@ public class ChatPanelController {
 	@Autowired
 	public GroupRepository groupRepository;
 
-	@PostMapping("/paneldata")
-	public ResponseEntity<?> getChatPanelData(@RequestParam String groupId, @RequestParam String empId) {
-		String data="groupId "+groupId+" userId "+empId;
-		System.out.print(data);
-
-		Groups groupData = groupRepository.findByGid(groupId);
+//	@PostMapping("/paneldata")
+//	public ResponseEntity<?> getChatPanelData(@RequestParam String groupId, @RequestParam String empId) {
+//		String data="groupId "+groupId+" userId "+empId;
+//		System.out.print(data);
+//
+//		Groups groupData = groupRepository.findByGid(groupId);
+//		User loginEmployee = userRepository.findByEid(empId);
+//
+//		
+//		ChatPanelResponse chatPanelResponse = new ChatPanelResponse(groupData, loginEmployee);
+//		
+//		return ResponseEntity.status(HttpStatus.OK).body(chatPanelResponse);
+//	}
+	
+	@PutMapping("/logout")
+	public ResponseEntity<?> getChatPanelData(@RequestParam String empId) {
 		User loginEmployee = userRepository.findByEid(empId);
-
+		loginEmployee.setOnlineStatus(false);
+		userRepository.save(loginEmployee);
 		
-		ChatPanelResponse chatPanelResponse = new ChatPanelResponse(groupData, loginEmployee);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(chatPanelResponse);
+		return ResponseEntity.status(HttpStatus.OK).body(loginEmployee);
 	}
 }

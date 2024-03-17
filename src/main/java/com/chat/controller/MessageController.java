@@ -22,4 +22,32 @@ public class MessageController {
 		}
 		return message;
 	}
+	
+	@MessageMapping("/logout")
+	@SendTo("/topic/logout")
+    public String handleLogout(String userId) {
+        // Handle logout message from client
+		try {
+			Thread.sleep(2000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        
+        // Notify other clients about the logout event
+        return userId;
+    }
+	
+	@MessageMapping("/login")
+	@SendTo("/topic/login")
+    public String handleLogin(String userId) {
+        // Handle logout message from client
+		try {
+			Thread.sleep(2000);
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        
+        // Notify other clients about the logout event
+        return userId;
+    }
 }
